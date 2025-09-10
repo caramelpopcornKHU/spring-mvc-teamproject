@@ -1,4 +1,4 @@
-package com.example.team6springboot;
+package com.lx.team6springboot;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
