@@ -1,5 +1,12 @@
 .metadata
 
+node_modules/
+dev_test/
+dist/
+public/mdb
+
+
+
 # Logs
 logs
 *.log
