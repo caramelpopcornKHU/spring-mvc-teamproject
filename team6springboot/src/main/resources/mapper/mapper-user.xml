@@ -3,37 +3,36 @@
 <mapper namespace="com.lx.team6springboot.repository.UserDAO">
 
     <insert id="insertUser" parameterType="com.lx.team6springboot.vo.UserVO" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO users (username, password, email, created_at, updated_at)
-        VALUES (#{username}, #{password}, #{email}, NOW(), NOW())
+        INSERT INTO user (username, password, email)
+        VALUES (#{username}, #{password}, #{email})
     </insert>
 
-    <select id="selectUserById" parameterType="String" resultType="com.lx.team6springboot.vo.UserVO">
-        SELECT 
-            id, 
-            username, 
-            password, 
-            email, 
-            created_at AS createdAt, 
+    <select id="selectUserById" parameterType="java.lang.String" resultType="com.lx.team6springboot.vo.UserVO">
+        SELECT
+            id,
+            username,
+            password,
+            email,
+            created_at AS createdAt,
             updated_at AS updatedAt
-        FROM 
-            users
-        WHERE 
+        FROM
+            user
+        WHERE
             id = #{id}
     </select>
 
     <update id="updateUser" parameterType="com.lx.team6springboot.vo.UserVO">
-        UPDATE users
-        SET 
+        UPDATE user
+        SET
             username = #{username},
             password = #{password},
-            email = #{email},
-            updated_at = NOW()
+            email = #{email}
         WHERE
             id = #{id}
     </update>
 
-    <delete id="deleteUser" parameterType="String">
-        DELETE FROM users WHERE id = #{id}
+    <delete id="deleteUser" parameterType="java.lang.String">
+        DELETE FROM user WHERE id = #{id}
     </delete>
 
 </mapper>
