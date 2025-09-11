@@ -6,7 +6,7 @@ const mysqlUtilities = require('mysql-utilities');
 const path = require('path');
 const fs = require('fs');
 
-const config = require('../config/config');
+const config = require('../config/config2');
 const sqlConfig = require('../config/sql_config');
 const logger = require('../util/logger');
 const util = require('../util/util');
