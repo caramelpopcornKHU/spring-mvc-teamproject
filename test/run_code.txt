@@ -1,0 +1,5 @@
+Bash
+
+choco install k6
+
+&'C:\Program Files\k6\k6.exe' run test.js
