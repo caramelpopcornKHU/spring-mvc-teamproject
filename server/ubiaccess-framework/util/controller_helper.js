@@ -76,6 +76,32 @@ class ControllerHelper {
 
     }
 
+
+
+    ///
+    /// 
+    ///
+    /// response가 없는 쿼리
+    ///
+    async executeNores(req, sqlName) {
+
+        const params = param.parse(req);
+
+        try {
+
+            const rows = await this.databaseHelper.query(sqlName, params);
+    
+            
+
+        } catch(err) {
+            console.error(err);
+        }
+
+    }
+
+
+
+
 }
 
 module.exports = ControllerHelper;
