@@ -1,0 +1,46 @@
+>> &'C:\Program Files\k6\k6.exe' run test_spike.js
+
+         /\      Grafana   /‾‾/
+    /\  /  \     |\  __   /  /
+   /  \/    \    | |/ /  /   ‾‾\
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+     execution: local
+        script: test_spike.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 2000 max VUs, 2m30s max duration (incl. graceful stop):
+              * default: Up to 2000 looping VUs for 2m0s over 3 stages (gracefulRampDown: 30s, gracefulStop: 30s)
+
+
+
+  █ TOTAL RESULTS
+
+    checks_total.......: 44085   364.692378/s
+    checks_succeeded...: 100.00% 44085 out of 44085
+    checks_failed......: 0.00%   0 out of 44085
+
+    ✓ status was 200
+
+    HTTP
+    http_req_duration..............: avg=2.48s min=2ms med=2.32s max=6.59s p(90)=5.73s p(95)=6.1s
+      { expected_response:true }...: avg=2.48s min=2ms med=2.32s max=6.59s p(90)=5.73s p(95)=6.1s
+    http_req_failed................: 0.00%  0 out of 44085
+    http_reqs......................: 44085  364.692378/s
+
+    EXECUTION
+    iteration_duration.............: avg=3.48s min=1s  med=3.32s max=7.59s p(90)=6.73s p(95)=7.1s
+    iterations.....................: 44085  364.692378/s
+    vus............................: 2      min=2          max=2000
+    vus_max........................: 2000   min=2000       max=2000
+
+    NETWORK
+    data_received..................: 12 MB  98 kB/s
+    data_sent......................: 3.6 MB 30 kB/s
+
+
+
+
+running (2m00.9s), 0000/2000 VUs, 44085 complete and 0 interrupted iterations
+default ✓ [======================================] 0000/2000 VUs  2m0s
