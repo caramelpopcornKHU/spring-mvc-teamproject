@@ -1,0 +1,46 @@
+PS D:\spring-project-workspace\test> &'C:\Program Files\k6\k6.exe' run test_stress.js
+
+         /\      Grafana   /‾‾/
+    /\  /  \     |\  __   /  /
+   /  \/    \    | |/ /  /   ‾‾\
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+     execution: local
+        script: test_stress.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 2000 max VUs, 2m30s max duration (incl. graceful stop):
+              * default: Up to 2000 looping VUs for 2m0s over 3 stages (gracefulRampDown: 30s, gracefulStop: 30s)
+
+
+
+  █ TOTAL RESULTS
+
+    checks_total.......: 54116   448.148282/s
+    checks_succeeded...: 100.00% 54116 out of 54116
+    checks_failed......: 0.00%   0 out of 54116
+
+    ✓ status was 200
+
+    HTTP
+    http_req_duration..............: avg=1.81s min=1.99ms med=1.96s max=4.35s p(90)=3.23s p(95)=3.28s
+      { expected_response:true }...: avg=1.81s min=1.99ms med=1.96s max=4.35s p(90)=3.23s p(95)=3.28s
+    http_req_failed................: 0.00%  0 out of 54116
+    http_reqs......................: 54116  448.148282/s
+
+    EXECUTION
+    iteration_duration.............: avg=2.81s min=1s     med=2.96s max=5.35s p(90)=4.23s p(95)=4.28s
+    iterations.....................: 54116  448.148282/s
+    vus............................: 46     min=29         max=2000
+    vus_max........................: 2000   min=2000       max=2000
+
+    NETWORK
+    data_received..................: 15 MB  120 kB/s
+    data_sent......................: 4.4 MB 36 kB/s
+
+
+
+
+running (2m00.8s), 0000/2000 VUs, 54116 complete and 0 interrupted iterations
+default ✓ [======================================] 0000/2000 VUs  2m0s
