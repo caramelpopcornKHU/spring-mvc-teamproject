@@ -117,15 +117,44 @@ const startTraining = () => {
   }, 2000)
 }
 
-// 결과 생성
-const generateResult = () => {
-  if (!applicationImageFile.value) return
-  isGenerating.value = true
-  setTimeout(() => {
-    resultImage.value = applicationImagePreview.value
-    isGenerating.value = false
-  }, 3000)
-}
+// '결과 생성' 버튼 로직 (API 연동)
+const generateResult = async () => {
+  if (!trainingImageFile.value || !applicationImageFile.value) {
+    alert("스타일 이미지와 적용할 이미지를 모두 업로드해주세요.");
+    return;
+  }
+
+  isGenerating.value = true;
+  resultImage.value = ''; // 이전 결과 초기화
+
+  const formData = new FormData();
+  formData.append('style_image', trainingImageFile.value); // '학습 이미지'를 '스타일 이미지'로 사용
+  formData.append('content_image', applicationImageFile.value); // '적용 이미지'를 '콘텐츠 이미지'로 사용
+  
+  try {
+    const response = await fetch('http://172.168.10.29:8000/style-transfer', { // API 엔드포인트 URL
+      method: 'POST',
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error(`API 오류: ${response.statusText}`);
+    }
+
+    // 서버가 반환한 이미지 데이터를 Blob으로 받음
+    const imageBlob = await response.blob();
+    
+    // Blob을 URL로 변환하여 img 태그의 src에 사용
+    const imageUrl = URL.createObjectURL(imageBlob);
+    resultImage.value = imageUrl;
+    
+  } catch (error) {
+    console.error('스타일 전송 실패:', error);
+    alert('이미지 생성에 실패했습니다. 콘솔을 확인해주세요.');
+  } finally {
+    isGenerating.value = false;
+  }
+};
 
 // 결과 다운로드
 const downloadResult = () => {
