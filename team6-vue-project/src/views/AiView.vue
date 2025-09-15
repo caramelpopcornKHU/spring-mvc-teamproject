@@ -117,44 +117,15 @@ const startTraining = () => {
   }, 2000)
 }
 
-// '결과 생성' 버튼 로직 (API 연동)
-const generateResult = async () => {
-  if (!trainingImageFile.value || !applicationImageFile.value) {
-    alert("스타일 이미지와 적용할 이미지를 모두 업로드해주세요.");
-    return;
-  }
-
-  isGenerating.value = true;
-  resultImage.value = ''; // 이전 결과 초기화
-
-  const formData = new FormData();
-  formData.append('style_image', trainingImageFile.value); // '학습 이미지'를 '스타일 이미지'로 사용
-  formData.append('content_image', applicationImageFile.value); // '적용 이미지'를 '콘텐츠 이미지'로 사용
-  
-  try {
-    const response = await fetch('http://172.168.10.29:8000/style-transfer', { // API 엔드포인트 URL
-      method: 'POST',
-      body: formData,
-    });
-
-    if (!response.ok) {
-      throw new Error(`API 오류: ${response.statusText}`);
-    }
-
-    // 서버가 반환한 이미지 데이터를 Blob으로 받음
-    const imageBlob = await response.blob();
-    
-    // Blob을 URL로 변환하여 img 태그의 src에 사용
-    const imageUrl = URL.createObjectURL(imageBlob);
-    resultImage.value = imageUrl;
-    
-  } catch (error) {
-    console.error('스타일 전송 실패:', error);
-    alert('이미지 생성에 실패했습니다. 콘솔을 확인해주세요.');
-  } finally {
-    isGenerating.value = false;
-  }
-};
+// 결과 생성
+const generateResult = () => {
+  if (!applicationImageFile.value) return
+  isGenerating.value = true
+  setTimeout(() => {
+    resultImage.value = applicationImagePreview.value
+    isGenerating.value = false
+  }, 3000)
+}
 
 // 결과 다운로드
 const downloadResult = () => {
@@ -167,7 +138,6 @@ const downloadResult = () => {
   document.body.removeChild(link)
 }
 </script>
-
 <style>
 /* ─────────────────────────────────────────────
    ✅ 메트로닉 상단 고정헤더/오프셋 “전역”에서 제거
@@ -200,7 +170,14 @@ html, body {
   padding-right: 20px;
   padding-bottom: 20px;
   padding-left: 20px;
-  color: #fff;
+
+  /* 상단 글씨 전체 흰색 강제 적용 */
+  color: #fff !important;
+}
+
+.ai-page .app-header h1,
+.ai-page .app-header p {
+  color: #fff !important;
 }
 
 .ai-page .app-header h1 {
@@ -209,7 +186,6 @@ html, body {
   font-weight: 700;
 }
 
-/* 본문 */
 .ai-page .main-content {
   max-width: 1100px;
   margin: 0 auto;
