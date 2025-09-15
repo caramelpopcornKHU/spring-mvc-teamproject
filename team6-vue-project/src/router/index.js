@@ -21,6 +21,11 @@ const router = createRouter({
       
       component: () => import('../views/PostView.vue'),
     },
+     {
+      path: '/ai',
+      name: 'ai',
+      component: () => import('../views/AiView.vue'),
+    },
   ],
 })
 
