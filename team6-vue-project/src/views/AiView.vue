@@ -116,7 +116,6 @@ const startTraining = () => {
     isTraining.value = false
   }, 2000)
 }
-
 // '결과 생성' 버튼 로직 (API 연동)
 const generateResult = async () => {
   if (!trainingImageFile.value || !applicationImageFile.value) {
@@ -155,7 +154,6 @@ const generateResult = async () => {
     isGenerating.value = false;
   }
 };
-
 // 결과 다운로드
 const downloadResult = () => {
   if (!resultImage.value) return
@@ -167,7 +165,6 @@ const downloadResult = () => {
   document.body.removeChild(link)
 }
 </script>
-
 <style>
 /* ─────────────────────────────────────────────
    ✅ 메트로닉 상단 고정헤더/오프셋 “전역”에서 제거
@@ -200,7 +197,14 @@ html, body {
   padding-right: 20px;
   padding-bottom: 20px;
   padding-left: 20px;
-  color: #fff;
+
+  /* 상단 글씨 전체 흰색 강제 적용 */
+  color: #fff !important;
+}
+
+.ai-page .app-header h1,
+.ai-page .app-header p {
+  color: #fff !important;
 }
 
 .ai-page .app-header h1 {
@@ -209,7 +213,6 @@ html, body {
   font-weight: 700;
 }
 
-/* 본문 */
 .ai-page .main-content {
   max-width: 1100px;
   margin: 0 auto;
