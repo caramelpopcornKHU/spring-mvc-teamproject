@@ -67,11 +67,11 @@ module.exports = class Traffic {
   /**
    * @RequestMapping(path="/add", method="get,post")
    */
-  async add(req, res) {
+  async add(req) {
     logger.debug(`Traffic::add 호출됨`);
 
     const sqlName = "traffic_add";
-    this.controllerHelper.execute(req, res, sqlName);
+    this.controllerHelper.executeNores(req,sqlName);
   }
 
 

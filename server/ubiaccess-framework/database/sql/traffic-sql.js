@@ -25,7 +25,7 @@ module.exports = {
   traffic_add: {
     sql: `insert into test_springboot.springboot_traffic(req_class, req_method) 
             values
-            (:req_class, :req_method)`,
+            ("user-class", "get")`,
   },
 
 

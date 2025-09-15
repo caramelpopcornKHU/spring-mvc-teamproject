@@ -7,6 +7,8 @@ const ControllerHelper = require("../util/controller_helper");
 
 const userSql = require("../database/sql/user-sql");
 
+const trafficlog = require("../controllers/traffic")
+
 /**
  * @Controller(path='/api/users')
  */
@@ -28,6 +30,9 @@ module.exports = class User {
   async listAll(req, res) {
     logger.debug(`User::listAll 호출됨`);
 
+    const traffic = new trafficlog(); // traffic 인스턴스 생성
+    await traffic.add(req); // 여기가 로그역활 수행
+
     const sqlName = "user_list_all";
     this.controllerHelper.execute(req, res, sqlName);
   }
@@ -41,6 +46,9 @@ module.exports = class User {
    */
   async list(req, res) {
     logger.debug(`User::list 호출됨`);
+
+        const traffic = new trafficlog(); // traffic 인스턴스 생성
+    await traffic.add(req); // 여기가 로그역활 수행
 
     const sqlObj = userSql.user_list;
     this.controllerHelper.executeList(req, res, sqlObj);
@@ -56,6 +64,9 @@ module.exports = class User {
   async read(req, res) {
     logger.debug(`User::read 호출됨`);
 
+        const traffic = new trafficlog(); // traffic 인스턴스 생성
+    await traffic.add(req); // 여기가 로그역활 수행
+
     const sqlName = "user_read";
     this.controllerHelper.execute(req, res, sqlName);
   }
@@ -69,6 +80,9 @@ module.exports = class User {
    */
   async add(req, res) {
     logger.debug(`User::add 호출됨`);
+
+        const traffic = new trafficlog(); // traffic 인스턴스 생성
+    await traffic.add(req); // 여기가 로그역활 수행
 
     const sqlName = "user_add";
     this.controllerHelper.execute(req, res, sqlName);
@@ -84,6 +98,9 @@ module.exports = class User {
   async modify(req, res) {
     logger.debug(`User::modify 호출됨`);
 
+        const traffic = new trafficlog(); // traffic 인스턴스 생성
+    await traffic.add(req); // 여기가 로그역활 수행
+
     const sqlName = "user_modify";
     this.controllerHelper.execute(req, res, sqlName);
   }
@@ -97,6 +114,9 @@ module.exports = class User {
    */
   async remove(req, res) {
     logger.debug(`User::remove 호출됨`);
+
+        const traffic = new trafficlog(); // traffic 인스턴스 생성
+    await traffic.add(req); // 여기가 로그역활 수행
 
     const sqlName = "user_remove";
     this.controllerHelper.execute(req, res, sqlName);
