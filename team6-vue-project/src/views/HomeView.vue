@@ -8,7 +8,7 @@
 
       <div class="test-results-grid">
         <div class="spring-block">
-          <div class="btn-group" style="right: 280px;">
+          <div class="btn-group">
             <button class="btn btn-test1">Spring</button>
           </div>
           <div class="chart-card card-graph">
@@ -19,8 +19,8 @@
           </div>
         </div>
 
-        <div class="ubiaccess-block" >
-          <div class="btn-group" style="right: 870px;">
+        <div class="ubiaccess-block ">
+          <div class="btn-group">
             <button class="btn btn-test2">Ubiaccess</button>
           </div>
           <div class="chart-card card-bar">
@@ -28,21 +28,19 @@
             <div class="chart-body">
               <Bar :data="barData" :options="barOptions" />
             </div>
-            <div class="stats-row" >
-        <div class="card-small">
-          <h6>Average Time</h6>
-          <p>120 ms</p>
-        </div>
-        <div class="card-small">
-          <h6>Success Rate</h6>
-          <p>98%</p>
-        </div>
-      </div>
+            <div class="stats-row">
+              <div class="card-small">
+                <h6>Average Time</h6>
+                <p>120 ms</p>
+              </div>
+              <div class="card-small">
+                <h6>Success Rate</h6>
+                <p>98%</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-
-      
     </div>
   </div>
 </template>
@@ -168,7 +166,7 @@ export default {
   max-width: 1920px;
   display: grid;
   grid-template-rows: auto auto 1fr auto;
-  row-gap: 24px;
+  row-gap: 1.5rem; /* px 대신 rem 사용 */
 }
 
 /* 헤더 카드 */
@@ -185,8 +183,8 @@ export default {
 .test-results-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  margin-top: 24px;
+  gap: 1.5rem; 
+  margin-top: 1.5rem;
 }
 
 /* Spring과 Ubiaccess 블록 스타일 */
@@ -194,30 +192,26 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 24px;
+  gap: 1.5rem; 
 }
 
 .ubiaccess-block {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 24px;
+  gap: 1.5rem;
 }
 
-.btn-test1 {
-  width: 50%;
-  padding: 1.5rem 1.5rem;
-  border-radius: 1rem;
-  border: none;
-  font-weight: 700;
-  font-size: 1.25rem;
-  cursor: pointer;
-  color: #000;
-  transition: background-color 0.2s;
+.btn-group {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem; 
+  width: 10vh;
 }
-.btn-test2 {
-  width: 50%;
-  padding: 1.5rem 1.5rem;
+.btn-test1{
+  flex: 1; 
+  padding: 1.5rem;
   border-radius: 1rem;
   border: none;
   font-weight: 700;
@@ -225,12 +219,25 @@ export default {
   cursor: pointer;
   color: #000;
   transition: background-color 0.2s;
+  left:19vw;
+}
+
+.btn-test2 {
+  flex: 1; 
+  padding: 1.5rem;
+  border-radius: 1rem;
+  border: none;
+  font-weight: 700;
+  font-size: 1.25rem;
+  cursor: pointer;
+  color: #000;
+  transition: background-color 0.2s;
+  right: 18vw;
 }
 .btn:hover { background-color: #555; }
 .btn-test1 { background-color: #00ff4c; }
 .btn-test2 { background-color: #f2ff00; }
 
-/* 차트 카드 스타일 */
 .chart-card {
   width: 100%;
   border-radius: 1rem;
@@ -246,16 +253,15 @@ export default {
   margin-bottom: 1rem;
   text-align: center;
 }
-.card-graph { background-color: #121212; height: 500px; }
-.card-bar { background-color: #1a1a1a;  height: 500px;}
+.card-graph { background-color: #121212; height: 60vh; }
+.card-bar { background-color: #1a1a1a;  height: 60vh;} 
 
 /* 하단 상태 카드 */
 .stats-row {
   display: flex;
   justify-content: flex-end;
-  gap: 24px;
-  margin-top: 24px;
-
+  gap: 1.5rem; 
+  margin-top: 1.5rem;
 }
 .card-small {
   background-color: #2a2a2a;
@@ -266,9 +272,12 @@ export default {
   align-items: center;
   text-align: center;
   padding: 1rem 1.5rem;
-  height: 100px;
+  height: auto; 
+  min-height: 100px; 
   box-shadow: 0 0.25rem 0.75rem rgba(0,0,0,0.45);
-  width: 350px;
+  width: auto; 
+  max-width: 350px; 
+  flex-grow: 1;
 }
 .card-small h6 { margin: 0.3rem 0; font-size: 1rem; color: #dcdcdc; }
 .card-small p  { margin: 0; font-weight: 700; font-size: 1.1rem; color: #fff; }
