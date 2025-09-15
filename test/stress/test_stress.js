@@ -10,13 +10,13 @@ export const options = {
     ],
 };
 
-
-// const SPRING_BOOT_API_URL = 'http://localhost:8080/api/users/6';
+const SPRING_BOOT_API_URL = 'http://localhost:8080/api/users/6';
 const NODE_JS_API_URL = 'http://localhost:8001/api/users/list-all';
 
 
 export default function () {
-    const res = http.get(NODE_JS_API_URL);
+    const res = http.get(SPRING_BOOT_API_URL);
+    //const res = http.get(NODE_JS_API_URL);
     check(res, { 'status was 200': (r) => r.status === 200 });
     sleep(1);
 }
