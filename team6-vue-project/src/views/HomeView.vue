@@ -165,11 +165,19 @@ export default {
   background: #1a1a1a;
   border-radius: 1rem;
   padding: 1.5rem 2rem;
-  text-align: center;
   box-shadow: 0 0.25rem 1rem rgba(0,0,0,0.5);
+  text-align: center;
 }
-.card-title { font-size: clamp(1.6rem, 2.6vw, 2.6rem); font-weight: 800; color: #e0e0e0; }
-.card-text  { font-size: clamp(0.95rem, 1.1vw, 1.1rem); color: #b3b3b3; }
+.card-title { 
+  font-size: clamp(1.6rem, 2.6vw, 2.6rem); 
+  font-weight: 800; color: #e0e0e0; 
+  transform: translateX(5%);
+}
+.card-text  { 
+  font-size: clamp(0.95rem, 1.1vw, 1.1rem); 
+  color: #b3b3b3;
+  transform: translateX(4%);
+}
 
 /* 본문 2열 그리드 */
 .test-results-grid {
@@ -212,8 +220,13 @@ export default {
   transition: opacity .2s ease;
 }
 .btn:hover { opacity: .9; }
-.btn-test1 { background-color: #00ff4c; }
-.btn-test2 { background-color: #f2ff00; }
+.btn-test1 { background-color: #00ff4c; 
+left: 15vw;
+}
+.btn-test2 { background-color: #f2ff00;
+right: 11vw;
+}
+
 
 /* 차트 카드 */
 .chart-card {
