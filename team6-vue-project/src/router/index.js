@@ -10,16 +10,16 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: '/about',
-      name: 'about',
+      path: '/graph',
+      name: 'graph',
       
-      component: () => import('../views/AboutView.vue'),
+      component: () => import('../views/GraphView.vue'),
     },
     {
-      path: '/post',
-      name: 'post',
+      path: '/ai',
+      name: 'ai',
       
-      component: () => import('../views/PostView.vue'),
+      component: () => import('../views/AiView.vue'),
     },
   ],
 })
