@@ -1,4 +1,4 @@
-data <- read.csv("D:/spring-project-workspace/test/ubi_stress_result.csv")
+data <- read.csv("D:/spring-project-workspace/test/stress_result_SB.csv")
 
 data_filtered <- data[-1, ]
 
@@ -23,7 +23,8 @@ filtered_values <- data_filtered$diff_ms[data_filtered$diff_ms >= lower_bound & 
 
 # 4. 히스토그램 그리기
 hist(filtered_values,
-     main = "Histogram of diff_ms (Outliers Removed)",
+     main = "SpringBoot of diff_ms (Outliers Removed)",
      xlab = "Time Difference (ms)",
      col = "skyblue",
      border = "white")
+
