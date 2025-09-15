@@ -277,11 +277,7 @@ right: 11vw;
   .card-bar .stats-row { grid-template-columns: 1fr; }
   .btn { width: 90%; }
 }
-/* =======================
-   👇 컴팩트 사이즈 오버라이드
-   ======================= */
 
-/* 헤더 타이틀/텍스트 조금 축소 */
 .hero-card {
   padding: clamp(16px, 2vh, 24px) clamp(20px, 2vw, 28px);
 }

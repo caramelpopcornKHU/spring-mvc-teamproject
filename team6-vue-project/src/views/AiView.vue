@@ -130,6 +130,16 @@ const downloadResult = () => {
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background-color: #0d0d0d;
+  overflow-y: auto; /* ✅ 기본 스크롤 */
+}
+body .app-default {
+  background-color: black;
+}
 
 /* --- 전체 레이아웃 및 폰트 --- */
 #ai-dashboard-wrapper {
@@ -140,6 +150,8 @@ const downloadResult = () => {
   align-items: flex-start;
   min-height: 100vh;
   padding: 50px 20px;
+  margin: 0;
+  width: 100%;
   box-sizing: border-box;
 }
 
@@ -174,7 +186,7 @@ const downloadResult = () => {
 }
 
 .panels-container {
-  display: grid;
+  display: flex;
   grid-template-columns: 1fr 1fr;
   gap: 30px;
 }
@@ -190,6 +202,7 @@ const downloadResult = () => {
   gap: 20px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* 은은한 그림자 */
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+ 
 }
 .panel-header {
   text-align: center;
@@ -275,6 +288,7 @@ const downloadResult = () => {
 .result-image-wrapper .placeholder svg {
   color: #adb5bd;
 }
+
 
 /* --- 스피너(로딩 아이콘) --- */
 .spinner {
