@@ -3,15 +3,15 @@
   <div id="app">
 
     <div id="kt_app_body">
-      
-      <!-- 앱 뷰 비워두기 -->
+
       <div class="d-flex flex-column h-100">
         <div class="d-flex flex-column flex-root app-root" id="kt_app_root">
         </div>
         <RouterView />
-      </div>
+      
     </div>
    </div>
+  </div>
   </div>
 </template>
 
