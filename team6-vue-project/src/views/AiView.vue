@@ -57,7 +57,21 @@
         <div class="result-image-wrapper">
           <img v-if="resultImage" :src="resultImage" alt="AI 처리 결과" />
           <div v-else class="placeholder">
-            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="64"
+              height="64"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect width="18" height="18" x="3" y="3" rx="2" />
+              <circle cx="8.5" cy="8.5" r="1.5" />
+              <path d="M21 15l-5-5L5 21" />
+            </svg>
             <span>이미지가 생성됩니다.</span>
           </div>
         </div>
@@ -74,48 +88,48 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import FileUpload from '@/components/FileUpload.vue'
+import { ref } from "vue";
+import FileUpload from "@/components/FileUpload.vue";
 
 // 학습 패널 상태
-const trainingImageFile = ref(null)
-const trainingImagePreview = ref('')
-const isTraining = ref(false)
+const trainingImageFile = ref(null);
+const trainingImagePreview = ref("");
+const isTraining = ref(false);
 
 // 적용 패널 상태
-const applicationImageFile = ref(null)
-const applicationImagePreview = ref('')
-const isGenerating = ref(false)
+const applicationImageFile = ref(null);
+const applicationImagePreview = ref("");
+const isGenerating = ref(false);
 
 // 결과 패널 상태
-const resultImage = ref('')
+const resultImage = ref("");
 
 // 공통 파일 처리
 const handleFile = (file, fileRef, previewRef) => {
-  fileRef.value = file
+  fileRef.value = file;
   if (file) {
-    const reader = new FileReader()
-    reader.onload = (e) => (previewRef.value = e.target.result)
-    reader.readAsDataURL(file)
+    const reader = new FileReader();
+    reader.onload = (e) => (previewRef.value = e.target.result);
+    reader.readAsDataURL(file);
   } else {
-    previewRef.value = ''
+    previewRef.value = "";
   }
-}
+};
 
 const handleTrainingFile = (file) =>
-  handleFile(file, trainingImageFile, trainingImagePreview)
+  handleFile(file, trainingImageFile, trainingImagePreview);
 
 const handleApplicationFile = (file) =>
-  handleFile(file, applicationImageFile, applicationImagePreview)
+  handleFile(file, applicationImageFile, applicationImagePreview);
 
 // 학습 시작
 const startTraining = () => {
-  if (!trainingImageFile.value) return
-  isTraining.value = true
+  if (!trainingImageFile.value) return;
+  isTraining.value = true;
   setTimeout(() => {
-    isTraining.value = false
-  }, 2000)
-}
+    isTraining.value = false;
+  }, 2000);
+};
 // '결과 생성' 버튼 로직 (API 연동)
 const generateResult = async () => {
   if (!trainingImageFile.value || !applicationImageFile.value) {
@@ -124,15 +138,16 @@ const generateResult = async () => {
   }
 
   isGenerating.value = true;
-  resultImage.value = ''; // 이전 결과 초기화
+  resultImage.value = ""; // 이전 결과 초기화
 
   const formData = new FormData();
-  formData.append('style_image', trainingImageFile.value); // '학습 이미지'를 '스타일 이미지'로 사용
-  formData.append('content_image', applicationImageFile.value); // '적용 이미지'를 '콘텐츠 이미지'로 사용
-  
+  formData.append("style_image", trainingImageFile.value); // '학습 이미지'를 '스타일 이미지'로 사용
+  formData.append("content_image", applicationImageFile.value); // '적용 이미지'를 '콘텐츠 이미지'로 사용
+
   try {
-    const response = await fetch('http://172.168.10.29:8000/style-transfer', { // API 엔드포인트 URL
-      method: 'POST',
+    const response = await fetch("http://172.168.10.29:8001/style-transfer", {
+      // API 엔드포인트 URL
+      method: "POST",
       body: formData,
     });
 
@@ -142,44 +157,50 @@ const generateResult = async () => {
 
     // 서버가 반환한 이미지 데이터를 Blob으로 받음
     const imageBlob = await response.blob();
-    
+
     // Blob을 URL로 변환하여 img 태그의 src에 사용
     const imageUrl = URL.createObjectURL(imageBlob);
     resultImage.value = imageUrl;
-    
   } catch (error) {
-    console.error('스타일 전송 실패:', error);
-    alert('이미지 생성에 실패했습니다. 콘솔을 확인해주세요.');
+    console.error("스타일 전송 실패:", error);
+    alert("이미지 생성에 실패했습니다. 콘솔을 확인해주세요.");
   } finally {
     isGenerating.value = false;
   }
 };
 // 결과 다운로드
 const downloadResult = () => {
-  if (!resultImage.value) return
-  const link = document.createElement('a')
-  link.href = resultImage.value
-  link.download = 'ai_result_image.png'
-  document.body.appendChild(link)
-  link.click()
-  document.body.removeChild(link)
-}
+  if (!resultImage.value) return;
+  const link = document.createElement("a");
+  link.href = resultImage.value;
+  link.download = "ai_result_image.png";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
 </script>
 <style>
 /* ─────────────────────────────────────────────
    ✅ 메트로닉 상단 고정헤더/오프셋 “전역”에서 제거
    (scoped 제거해야 전역에 제대로 적용됩니다)
    ───────────────────────────────────────────── */
-body.app-default[data-kt-app-header-fixed="true"] .app-wrapper { padding-top: 0 !important; }
-#kt_app_header { display: none !important; }
-:root { --kt-app-header-height: 0 !important; }
+body.app-default[data-kt-app-header-fixed="true"] .app-wrapper {
+  padding-top: 0 !important;
+}
+#kt_app_header {
+  display: none !important;
+}
+:root {
+  --kt-app-header-height: 0 !important;
+}
 
 /* 기본 배경/폰트 */
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   background-color: #0d0d0d;
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   overflow-y: auto;
 }
 
@@ -235,15 +256,25 @@ html, body {
   border-radius: 20px;
   padding: 28px;
   flex: 1 1 45%;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.ai-page .panel-header { text-align: center; }
-.ai-page .panel-header h2 { margin: 0 0 8px 0; color: #1a253c; font-size: 1.5rem; }
-.ai-page .panel-header p  { margin: 0; font-size: 1rem; color: #6a738b; }
+.ai-page .panel-header {
+  text-align: center;
+}
+.ai-page .panel-header h2 {
+  margin: 0 0 8px 0;
+  color: #1a253c;
+  font-size: 1.5rem;
+}
+.ai-page .panel-header p {
+  margin: 0;
+  font-size: 1rem;
+  color: #6a738b;
+}
 
 .ai-page .action-button {
   width: 100%;
@@ -258,11 +289,19 @@ html, body {
   align-items: center;
   height: 52px;
 }
-.ai-page .action-button:disabled { opacity: .6; cursor: not-allowed; }
+.ai-page .action-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
 .ai-page .training-panel .action-button,
-.ai-page .action-button.primary { background-color: #007BFF; color: #fff; }
+.ai-page .action-button.primary {
+  background-color: #007bff;
+  color: #fff;
+}
 .ai-page .training-panel .action-button:hover:not(:disabled),
-.ai-page .action-button.primary:hover:not(:disabled) { background-color: #0056b3; }
+.ai-page .action-button.primary:hover:not(:disabled) {
+  background-color: #0056b3;
+}
 
 .ai-page .result-image-wrapper {
   width: 100%;
@@ -290,20 +329,34 @@ html, body {
   gap: 1.2rem;
   color: #6c757d;
 }
-.ai-page .result-image-wrapper .placeholder svg { color: #adb5bd; }
+.ai-page .result-image-wrapper .placeholder svg {
+  color: #adb5bd;
+}
 
 /* 로딩 스피너 */
 .spinner {
   width: 24px;
   height: 24px;
-  border: 4px solid rgba(255,255,255,0.3);
+  border: 4px solid rgba(255, 255, 255, 0.3);
   border-radius: 50%;
   border-top-color: #fff;
   animation: spin 1s linear infinite;
 }
-@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
 
 /* 반응형 */
-@media (max-width: 900px) { .ai-page .panels-container { flex-direction: column; } }
-@media (max-width: 768px) { .ai-page .main-content { padding-bottom: 150px; } }
+@media (max-width: 900px) {
+  .ai-page .panels-container {
+    flex-direction: column;
+  }
+}
+@media (max-width: 768px) {
+  .ai-page .main-content {
+    padding-bottom: 150px;
+  }
+}
 </style>
